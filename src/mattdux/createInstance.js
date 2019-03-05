@@ -12,12 +12,12 @@ export default class Mattdux {
 
     emit(functionName, payload) {
         const action = this.events[functionName](payload);
-        const newStore =  this.reducers.reduce((acc, item) => { 
-            const newState = item.reducer(this.store[item.name], action);
-            acc[item.name] = newState;
+        const newStore =  this.reducers.reduce((acc, reducerObject) => { 
+            const newState = reducerObject.reducer(this.store[reducerObject.name], action);
+            acc[reducerObject.name] = newState;
             return acc;
         }, {});
-
+    
         this.store = newStore;
         return newStore;
     }
@@ -31,7 +31,7 @@ export default class Mattdux {
                         reducer: reducer[1]
                     });
 
-                    this.store[reducer[0]] = (arr && arr[index]) || [];
+                    this.store[reducer[0]] = this.reducers[index].reducer(null, { type: null }) || [];
                 });
     }
 };

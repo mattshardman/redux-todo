@@ -79,14 +79,14 @@ const Button = styled.button`
 
 function TodoList(props) {
     const [field, setField] = useState('');
-    const { todo } = props.state;
+    const { todos } = props.state;
 
     return (
         <Section>
             <Header>Todos</Header>
 
             <TodoWrapper>
-                { todo.map((todo, index) => 
+                { todos.map((todo, index) => 
                     <Todo 
                         key={todo.id} 
                         index={index}

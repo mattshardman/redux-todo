@@ -1,28 +1,28 @@
 import uuid from 'uuid';
 import { ADD_TODO, TOGGLE_COMPLETED, DELETE_TODO } from '../constants'
 
-export const addTodo = payload => {
+export const addTodo = text => {
     return {
         type: ADD_TODO,
         payload: {
             id: uuid(),
             date: new Date(),
             complete: false,
-            text: payload
+            text,
         }
     }
 }
 
-export const toggleCompleted = payload => {
+export const toggleCompleted = id => {
     return {
         type: TOGGLE_COMPLETED,
-        payload
+        payload: { id }
     }
 }
 
-export const deleteTodo = payload => {
+export const deleteTodo = id => {
     return {
         type: DELETE_TODO,
-        payload
+        payload: { id }
     }
 }

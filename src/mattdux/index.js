@@ -17,14 +17,14 @@ export const connect = (stateWanted, functions) => Component => {
             
             Object
                 .entries(functions)
-                .forEach(each => mattdux.on(each[0], each[1]));
+                .forEach(([funcName, func]) => mattdux.on(funcName, func));
 
             const functionList = Object
                 .entries(functions)
-                .reduce((acc, func) => {
-                    acc[func[0]] = payload => { 
-                        const newState = mattdux.emit(func[0], payload);
-                        setStore(newState);
+                .reduce((acc, [funcName]) => {
+                    acc[funcName] = payload => { 
+                        const newState = mattdux.emit(funcName, payload)
+                        setStore(newState);             
                     }
                     return acc;
                 }, {});

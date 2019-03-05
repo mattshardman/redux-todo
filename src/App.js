@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { createStore } from './mattdux';
-import todo from './components/reducers/todos';
+
+import rootReducer from './components/reducers';
+
 import TodoList from './components/TodoList';
 
-const defaultState = [{
-  id: 'demo',
-  date: new Date(),
-  text: 'Running',
-  complete: false
-}];
-
-createStore({todo}, [defaultState]);
+createStore(rootReducer);
 
 const Wrapper = styled.div`
   height: 100vh;
