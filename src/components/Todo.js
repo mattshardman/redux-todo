@@ -48,6 +48,14 @@ const ListItem = styled.button`
     }
 `;
 
+const TextWrapper = styled.div`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+`;
+
 const CompleteButton = styled.button`
     position: absolute;
     top: 0;
@@ -158,7 +166,10 @@ function Todo({ index, todo, toggleCompleted, deleteTodo }) {
                         index={index}
                     />
                 }
-                {todo.text}
+                <TextWrapper>
+                    <small>{todo.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</small>
+                    <h2 style={{ margin: '10px 0' }}>{todo.text}</h2>
+                </TextWrapper>
                 { todo.complete &&
                 <DeleteButton onClick={() => deleteTodo(todo.id)}>
                     <i className="material-icons">

@@ -15,7 +15,12 @@ const Section = styled.section`
     right: 0;
     width: 500px;
     max-width: 100%;
-    overflow: hidden;
+    overflow: scroll;
+    padding-bottom: 50px;
+
+    ::-webkit-scrollbar { 
+        display: none; 
+    } 
 `;
 
 const Header = styled.h1`
@@ -30,8 +35,7 @@ const TodoWrapper = styled.div`
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    overflow-Y: scroll;
-    overflow-X: hidden;
+    overflow: hidden;
     min-height: 90px;
     transform: all 3s;
 `;
@@ -42,12 +46,12 @@ const ButtonWrapper = styled.form`
     position: fixed;
     bottom: 0;
     left: 0;
-    border: none;
-    border-radius: 22px;
+    border: none; 
     width: 100%;
     padding: 10px;
     display: flex;
     align-items: center;
+    background: rgba(90,90,90,0.3);
     justify-content: space-between;
 `;
 

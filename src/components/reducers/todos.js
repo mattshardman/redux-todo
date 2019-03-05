@@ -3,7 +3,8 @@ import { ADD_TODO, DELETE_TODO, TOGGLE_COMPLETED } from '../constants';
 
 const defaultState = [{
     id: uuid(),
-    text: 'running',
+    date: new Date(),
+    text: 'Running',
     complete: false
 }];
 
