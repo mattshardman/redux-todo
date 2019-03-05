@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 import { addTodo, toggleCompleted, deleteTodo } from './actions';
 import styled from 'styled-components';
 
@@ -7,9 +8,20 @@ import Todo from './Todo';
 
 const Section = styled.section`
     box-sizing: border-box;
-    position: relative;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 500px;
-    max-width: 90%;
+    max-width: 100%;
+    overflow: hidden;
+`;
+
+const Header = styled.h1`
+    display: flex;
+    width: 100%;
+    justify-content: center;
 `;
 
 const TodoWrapper = styled.div`
@@ -18,23 +30,25 @@ const TodoWrapper = styled.div`
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    height: 400px;
-`
+    overflow-Y: scroll;
+    overflow-X: hidden;
+    min-height: 90px;
+    transform: all 3s;
+`;
 
 const ButtonWrapper = styled.form`
+    z-index: 1000;
     box-sizing: border-box;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     border: none;
     border-radius: 22px;
-    padding: 3px 6px;
-    width: 80%;
-    margin: 0 10%;
+    width: 100%;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 3px 25px rgba(0,0,0,0.1);
 `;
 
 const Input = styled.input`
@@ -45,18 +59,20 @@ const Input = styled.input`
     height: 40px;
     padding: 0 15px;
     outline: none;
+    box-shadow: 0 3px 25px rgba(0,0,0,0.1);
 `;
 
 const Button = styled.button`
     box-sizing: border-box;
     width: 25%;
-    height: 35px;
-    background: deepskyblue;
+    height: 40px;
+    background: #4285F4;
     border-radius: 20px;
     border: none;
     color: #fff;
     outline: none;
-`
+    box-shadow: 0 3px 25px rgba(0,0,0,0.2);
+`;
 
 function TodoList(props) {
     const [field, setField] = useState('');
@@ -64,13 +80,17 @@ function TodoList(props) {
 
     return (
         <Section>
+            <Header>Todos</Header>
+
             <TodoWrapper>
-                { todos.map(todo => 
+                { todos.map((todo, index) => 
                     <Todo 
                         key={todo.id} 
+                        index={index}
                         toggleCompleted={props.toggleCompleted}
                         deleteTodo={props.deleteTodo}
-                        todo={todo} />) 
+                        todo={todo} 
+                    />) 
                 }
             </TodoWrapper>
 
@@ -97,4 +117,8 @@ const mapStateToProps = state => {
     return {state}
 }
 
-export default connect(mapStateToProps, { addTodo, toggleCompleted, deleteTodo })(TodoList);
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({ addTodo, toggleCompleted, deleteTodo });
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
