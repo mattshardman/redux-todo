@@ -118,7 +118,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ addTodo, toggleCompleted, deleteTodo });
+    return bindActionCreators({ addTodo, toggleCompleted, deleteTodo }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

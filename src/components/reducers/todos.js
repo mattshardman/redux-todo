@@ -1,4 +1,5 @@
 import uuid from 'uuid';
+import { ADD_TODO, DELETE_TODO, TOGGLE_COMPLETED } from '../constants';
 
 const defaultState = [{
     id: uuid(),
@@ -8,16 +9,16 @@ const defaultState = [{
 
 export default (state = defaultState, action) => {
     switch(action.type) {
-        case 'ADD_TODO': 
+        case ADD_TODO: 
             const todo = {
                 id: uuid(),
                 complete: false,
                 text: action.payload
             }; 
-            
+
             return [...state, todo];
 
-        case 'TOGGLE_COMPLETED':
+        case TOGGLE_COMPLETED:
             const newState = state.map(each => {
                 if (each.id === action.payload) {
                     return {
@@ -30,7 +31,7 @@ export default (state = defaultState, action) => {
 
             return newState;
 
-        case 'DELETE_TODO':
+        case DELETE_TODO:
             return state.filter(each => each.id !== action.payload);
 
         default:
