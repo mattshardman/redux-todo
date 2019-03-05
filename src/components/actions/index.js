@@ -1,10 +1,16 @@
+import uuid from 'uuid';
 import { ADD_TODO, TOGGLE_COMPLETED, DELETE_TODO } from '../constants'
 
 export const addTodo = payload => {
     return {
         type: ADD_TODO,
-        date: new Date(),
-        payload
+        
+        payload: {
+            id: uuid(),
+            date: new Date(),
+            complete: false,
+            text: payload
+        }
     }
 }
 

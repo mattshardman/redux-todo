@@ -36,7 +36,7 @@ const ListItem = styled.button`
     border-top-left-radius: ${({ complete }) => complete ? '30px' : '5px'};
     transform: ${({dragPosition}) => `translateX(${-dragPosition}px)`};
     transition: ${({finished}) => finished ? 'border-top-left-radius 250ms, transform 250ms, background 420ms' : 'none'};
-    animation-name: ${({index}) => !index && 'demo'};
+    animation-name: ${({id}) => id === 'demo' && 'demo'};
     animation-duration: 2s;
     animation-iteration-count: 1;
 
@@ -147,7 +147,7 @@ function Todo({ index, todo, toggleCompleted, deleteTodo }) {
     }
 
     const listItemProps = {
-        index,
+        id: todo.id,
         finished,
         dragPosition,
         complete: todo.complete
