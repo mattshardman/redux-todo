@@ -5,7 +5,7 @@ const defaultState = [{
     date: new Date(),
     text: 'Running',
     complete: false
-}];
+  }];
 
 export default (state = defaultState, action) => {
     switch(action.type) {

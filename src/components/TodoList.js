@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux';
-import { addTodo, toggleCompleted, deleteTodo } from './actions';
+import { connect } from '../mattdux';
+import * as actions from './actions';
 import styled from 'styled-components';
 
 import Todo from './Todo';
@@ -80,14 +79,14 @@ const Button = styled.button`
 
 function TodoList(props) {
     const [field, setField] = useState('');
-    const { todos } = props.state;
+    const { todo } = props.state;
 
     return (
         <Section>
             <Header>Todos</Header>
 
             <TodoWrapper>
-                { todos.map((todo, index) => 
+                { todo.map((todo, index) => 
                     <Todo 
                         key={todo.id} 
                         index={index}
@@ -117,12 +116,6 @@ function TodoList(props) {
     )
 }
 
-const mapStateToProps = state => { 
-    return {state}
-}
+const mapStateToProps = state => state;
 
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ addTodo, toggleCompleted, deleteTodo }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+export default connect(mapStateToProps, actions)(TodoList);

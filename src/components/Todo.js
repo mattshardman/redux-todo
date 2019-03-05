@@ -84,7 +84,7 @@ const DemoTouch = styled.div`
     width: 50px;
     border-radius: 50%;
     background: #4285F4;
-    animation-name: demo-touch;
+    animation-name: ${({id}) => id === 'demo' && 'demo-touch'};
     animation-duration: 2s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
@@ -161,9 +161,9 @@ function Todo({ index, todo, toggleCompleted, deleteTodo }) {
                 onTouchMove={touchMoveHandler}
                 onTouchEnd={touchEndHandler} 
             >   
-                { !index && 
+                { todo.id === 'demo' && 
                     <DemoTouch 
-                        index={index}
+                        id={todo.id}
                     />
                 }
                 <TextWrapper>

@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import rootReducer from './components/reducers';
+import { createStore } from './mattdux';
+import todo from './components/reducers/todos';
 import TodoList from './components/TodoList';
 
-const store = createStore(rootReducer);
+const defaultState = [{
+  id: 'demo',
+  date: new Date(),
+  text: 'Running',
+  complete: false
+}];
+
+createStore({todo}, [defaultState]);
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -18,12 +24,10 @@ const Wrapper = styled.div`
 
 class App extends Component {
   render() {
-    return (
-      <Provider store={store}>
+    return (  
         <Wrapper>
           <TodoList />
         </Wrapper>
-      </Provider>
     );
   }
 }
