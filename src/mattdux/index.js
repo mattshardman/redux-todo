@@ -23,8 +23,12 @@ export const connect = (stateWanted, functions) => Component => {
                 .entries(functions)
                 .reduce((acc, [funcName]) => {
                     acc[funcName] = payload => { 
-                        const newState = mattdux.emit(funcName, payload)
-                        setStore(newState);             
+                        const newState = mattdux.emit(funcName, payload);
+                        if (newState instanceof Promise) {
+                            newState.then(r => setStore(r));
+                        } else {
+                            setStore(newState);
+                        }         
                     }
                     return acc;
                 }, {});

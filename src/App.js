@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { createStore } from './mattdux';
+import { createStore, mattdux } from './mattdux';
 
 import rootReducer from './components/reducers';
 
 import TodoList from './components/TodoList';
 
+
 createStore(rootReducer);
+
+console.log(mattdux)
 
 const Wrapper = styled.div`
   height: 100vh;

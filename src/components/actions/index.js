@@ -1,7 +1,11 @@
+import axios from 'axios';
 import uuid from 'uuid';
 import { ADD_TODO, TOGGLE_COMPLETED, DELETE_TODO } from '../constants'
 
-export const addTodo = text => {
+export const addTodo = async text => {
+    const res = await axios.get('https://pokeapi.co/api/v2/pokemon/');
+    const { count } = await res.data;
+    console.log(res.data)
     return {
         type: ADD_TODO,
         payload: {
@@ -9,6 +13,7 @@ export const addTodo = text => {
             date: new Date(),
             complete: false,
             text,
+            count,
         }
     }
 }
