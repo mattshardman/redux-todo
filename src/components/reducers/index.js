@@ -1,10 +1,7 @@
-// import { combineReducers } from 'redux';
+import { combineReducers } from '../../mattdux';
 import todos from './todos';
 
-// export default combineReducers({
-//     todos,
-// });
-
-export default {
+export default combineReducers({
     todos,
-};
+});
+

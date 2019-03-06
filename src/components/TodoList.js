@@ -121,8 +121,8 @@ function TodoList(props) {
     const [field, setField] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [showAdd, setShowAdd] = useState(false);
+    const { todos } = props;
 
-    const { todos } = props.state;
     return (
         <Section>
             <SearchBar>

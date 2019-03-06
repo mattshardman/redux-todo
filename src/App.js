@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { createStore } from './mattdux';
+import { Provider } from './mattdux';
 // import { Provider } from 'react-redux';
 
 import rootReducer from './components/reducers';
@@ -22,11 +23,11 @@ const Wrapper = styled.div`
 class App extends Component {
   render() {
     return (  
-      // <Provider store={store}>
+      <Provider store={store}>
         <Wrapper>
           <TodoList />
         </Wrapper>
-      // </Provider>
+      </Provider>
     );
   }
 }
