@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { createStore } from './mattdux';
+// import { createStore } from 'redux';
 import { Provider } from './mattdux';
 // import { Provider } from 'react-redux';
 
 import rootReducer from './components/reducers';
 
 import TodoList from './components/TodoList';
-
 
 const store = createStore(rootReducer);
 

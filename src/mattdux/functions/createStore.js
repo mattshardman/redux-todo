@@ -1,6 +1,6 @@
 import Mattdux from './mattdux';
 
-// exports createStore function from mattdux instance
+// creates new instance of mattdux and initializes with reducers and default state of reducers
 export const createStore = (reducers, initialState) => {
     const mattdux = new Mattdux();
     mattdux.createStore(reducers, initialState);
