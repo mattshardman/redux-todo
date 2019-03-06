@@ -5,12 +5,9 @@ export const connect = (sliceOfStateWanted, functions) => (Component) => {
     class Connect extends React.Component {
         static contextType = StoreContext;
 
-        constructor() {
-            super();
-            this.state = {
-                mattduxFunctions: null,
-                store: null,
-            }
+        state = {
+            mattduxFunctions: null,
+            store: null,
         }     
 
         componentDidMount() {
@@ -21,7 +18,7 @@ export const connect = (sliceOfStateWanted, functions) => (Component) => {
             arrayOfFunctions.forEach(([funcName, func]) => this.context.on(funcName, func));
             // for each function create a function that will emit an event to mattdux
             // each function is then passed to the wrapped component
-            const functionList = () => arrayOfFunctions.reduce((acc, [funcName]) => {
+            const functionList = arrayOfFunctions.reduce((acc, [funcName]) => {
                 // create a function on the HOC state that will emit an event to mattdux instance when called by the wrapped component
                 acc[funcName] = payload => { 
                     // emits an event to mattdux instance that returns a new store
@@ -43,7 +40,7 @@ export const connect = (sliceOfStateWanted, functions) => (Component) => {
                 return acc;
             }, {});
 
-            return this.setState({ mattduxFunctions: functionList() });
+            return this.setState({ mattduxFunctions: functionList });
         }
 
         render() {

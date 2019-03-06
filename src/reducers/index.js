@@ -1,4 +1,4 @@
-import { combineReducers } from '../../mattdux';
+import { combineReducers } from '../mattdux';
 // import { combineReducers } from 'redux';
 
 import todos from './todos';
