@@ -1,4 +1,4 @@
-class Mattdux {
+export default class Mattdux {
     constructor() {
         this.actions = {};
         this.reducers = [];
@@ -46,5 +46,3 @@ class Mattdux {
                 });
     }
 };
-
-export const mattdux = new Mattdux();
