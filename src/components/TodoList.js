@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { connect } from '../mattdux';
 import * as actions from './actions';
 import styled from 'styled-components';
-
 import Todo from './Todo';
 
 const Section = styled.section`
@@ -80,7 +79,6 @@ const Button = styled.button`
 function TodoList(props) {
     const [field, setField] = useState('');
     const { todos } = props.state;
-
     return (
         <Section>
             <Header>Todos</Header>
