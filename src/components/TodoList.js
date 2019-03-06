@@ -4,8 +4,6 @@ import * as actions from './actions';
 import styled from 'styled-components';
 import Todo from './Todo';
 
-console.log(connect);
-
 const Section = styled.section`
     box-sizing: border-box;
     position: absolute;
