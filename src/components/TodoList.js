@@ -196,6 +196,8 @@ function TodoList(props) {
     )
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = ({ todos }) => {
+    return { todos };
+}
 
 export default connect(mapStateToProps, actions)(TodoList);

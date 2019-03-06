@@ -1,7 +1,7 @@
 import React from 'react'
 import { StoreContext } from './Context';
 
-export const connect = (stateWanted, functions) => (Component) => {
+export const connect = (sliceOfStateWanted, functions) => (Component) => {
     class Connect extends React.Component {
         static contextType = StoreContext;
 
@@ -11,7 +11,6 @@ export const connect = (stateWanted, functions) => (Component) => {
                 mattduxFunctions: null,
                 store: null,
             }
-            // this.sliceOfStoreToPassToComponent = { state: stateWanted ? stateWanted(this.state.store) : this.state.store };
         }     
 
         componentDidMount() {
@@ -30,9 +29,15 @@ export const connect = (stateWanted, functions) => (Component) => {
                     // if the newStore returns a promise call .then on it and then set the HOC store state to the new store
                     // otherwise immediately set the HOC store state to the new store
                     if (newStore instanceof Promise) {
-                        newStore.then(r => this.setState({ store: r }));
-                    } else {                    
-                        this.setState({ store: newStore });
+                        newStore.then(result => { 
+                            // set HOC store to desired slice of state based on function passed in as mapStateToProps
+                            const componentStore = sliceOfStateWanted(result);   
+                            this.setState({ store: componentStore });
+                        });
+                    } else {   
+                        // set HOC store to desired slice of state based on function passed in as mapStateToProp
+                        const componentStore = sliceOfStateWanted(newStore);   
+                        this.setState({ store: componentStore });
                     }         
                 }
                 return acc;
@@ -45,17 +50,14 @@ export const connect = (stateWanted, functions) => (Component) => {
             if (this.state.store) {
                 return (
                     <Component
-                            {...this.props}
-                            // {...this.sliceOfStoreToPassToComponent}
-                            {...this.state.store}
-                            {...this.state.mattduxFunctions}
-                        />
-                    
+                        {...this.props}
+                        {...this.state.store}
+                        {...this.state.mattduxFunctions}
+                    />
                 )
             }
 
             return null;
-          
         }
     }
 
