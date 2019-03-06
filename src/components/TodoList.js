@@ -21,6 +21,15 @@ const Section = styled.section`
     } 
 `;
 
+const SearchBar = styled.div`
+    z-index: 1000; 
+    position: fixed; 
+    box-sizing: border-box; 
+    height: 95px; 
+    width: 100%; 
+    padding: 20px;
+`;
+
 const Header = styled.p`
     display: flex;
     justify-content: flex-start;
@@ -74,11 +83,12 @@ const InputWrapper = styled.div`
     button {
         background: none;
         border: none;
-        margin-right: 10px;
+        margin-right: 15px;
         padding: 0;
         display: flex;
         align-items: center;
         height: 100%;
+        outline: none;
     }
 `;
 
@@ -110,14 +120,12 @@ const Button = styled.button`
 function TodoList(props) {
     const [field, setField] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
-
     const [showAdd, setShowAdd] = useState(false);
-
 
     const { todos } = props.state;
     return (
         <Section>
-            <div style={{ zIndex: 1000, position: 'fixed', boxSizing: 'border-box', height: 95, width: '100%', padding: 20 }}>
+            <SearchBar>
                 <InputWrapper
                     up
                     show={!showAdd}
@@ -126,22 +134,29 @@ function TodoList(props) {
                         type="text" 
                         placeholder="Search here"
                         value={searchTerm} 
-                        
-                        onChange={e => setSearchTerm(e.target.value)} 
+                        onChange={e => {
+                            setSearchTerm(e.target.value);
+                            props.filterTodo(e.target.value);
+                        }}
                     />
                 </InputWrapper>
-            </div>
+            </SearchBar>
             <Header shiftUp={showAdd}>TODOS</Header>
 
             <TodoWrapper>
-                { todos.map((todo, index) => 
+                { todos.map((todo, index) => ( 
+                    todo.display ?
                     <Todo 
                         key={todo.id} 
                         index={index}
                         toggleCompleted={props.toggleCompleted}
                         deleteTodo={props.deleteTodo}
                         todo={todo} 
-                    />) 
+                    />
+                    :
+                    null
+                )
+                ) 
                 }
             </TodoWrapper>
 
