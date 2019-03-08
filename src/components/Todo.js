@@ -7,11 +7,11 @@ const TodoItem = styled.div`
     width: calc(100% - 10px);
     height: 80px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     background: #fff;
     -webkit-tap-highlight-color: transparent;
-    margin: 2.5px 0px;
+    margin: 2px 0px;
     border-radius: 5px;
     cursor: pointer;
 `;
@@ -19,7 +19,7 @@ const TodoItem = styled.div`
 const ListItem = styled.button`
     z-index: 10;
     box-sizing: border-box;
-    border: none;
+    border: 1px solid #fff;
     outline: none;
     position: absolute;
     padding: 0 15px;
@@ -30,22 +30,41 @@ const ListItem = styled.button`
     justify-content: space-between;
     -webkit-tap-highlight-color: transparent;
     align-items: center;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-    background: ${({deleteMode}) => deleteMode ? 'red' : '#fff'};
+    background: #fff;
+
     text-decoration: ${({ complete }) => complete ? 'line-through' : 'none'};
-    border-top-left-radius: ${({ complete }) => complete ? '30px' : '5px'};
+    border-top-left-radius: ${({ complete }) => complete ? '35px' : '5px'};
+    box-shadow: ${({dragPosition}) => dragPosition ? '0 3px 12px rgba(0,0,0,0.1)' : 'none'};
     transform: ${({dragPosition}) => `translateX(${-dragPosition}px)`};
     transition: ${({finished}) => finished ? 'border-top-left-radius 250ms, transform 250ms, background 420ms' : 'none'};
+
+    /* animation for demo component only */
     animation-name: ${({id}) => id === 'demo' && 'demo'};
     animation-duration: 2s;
     animation-iteration-count: 1;
 
     @keyframes demo {
-        0% { transform: translateX(0); }
-        25% { transform: translateX(80px); }
-        75% { transform: translateX(80px); }
-        100% { transform: translateX(0); }
+        0% { transform: translateX(0); box-shadow: none; }
+        25% { transform: translateX(80px); box-shadow: 0 3px 12px rgba(0,0,0,0.1); }
+        75% { transform: translateX(80px); box-shadow: 0 3px 12px rgba(0,0,0,0.1); }
+        100% { transform: translateX(0); box-shadow: none; }
     }
+`;
+
+const ContentWrapper = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const Avatar = styled.div`
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background: crimson;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 const TextWrapper = styled.div`
@@ -58,10 +77,8 @@ const TextWrapper = styled.div`
 
 const CompleteButton = styled.button`
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+    height: 98%;
+    width: 99%;
     border-radius: 5px;
     color: white;
     border: none;
@@ -84,7 +101,7 @@ const DemoTouch = styled.div`
     width: 50px;
     border-radius: 50%;
     background: #4285F4;
-    animation-name: demo-touch;
+    animation-name: ${({id}) => id === 'demo' && 'demo-touch'};
     animation-duration: 2s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
@@ -148,9 +165,9 @@ function Todo({ index, todo, toggleCompleted, deleteTodo }) {
 
     const listItemProps = {
         id: todo.id,
+        complete: todo.complete,
         finished,
         dragPosition,
-        complete: todo.complete
     }
 
     return (
@@ -161,15 +178,22 @@ function Todo({ index, todo, toggleCompleted, deleteTodo }) {
                 onTouchMove={touchMoveHandler}
                 onTouchEnd={touchEndHandler} 
             >   
-                { !index && 
+                { todo.id === 'demo' && 
                     <DemoTouch 
-                        index={index}
+                        id={todo.id}
                     />
                 }
-                <TextWrapper>
-                    <small>{todo.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</small>
-                    <h2 style={{ margin: '10px 0' }}>{todo.text}</h2>
-                </TextWrapper>
+                <ContentWrapper>
+                    <Avatar>
+                        <h1 style={{ margin: 0, fontSize: 16, color: '#fff' }}>
+                            {todo.text.charAt().toUpperCase()}
+                        </h1>
+                    </Avatar>
+                    <TextWrapper>
+                        <small>{todo.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</small>
+                        <h2 style={{ margin: '10px 0' }}>{todo.text}</h2>
+                    </TextWrapper>
+                </ContentWrapper>
                 { todo.complete &&
                 <DeleteButton onClick={() => deleteTodo(todo.id)}>
                     <i className="material-icons">
