@@ -47,8 +47,7 @@ const TodoWrapper = styled.div`
     transform: all 3s;
 `;
 
-function TodoList(props) {
-    const [field, setField] = useState('');   
+function TodoList(props) {  
     const [showAdd, setShowAdd] = useState(false);
     const { todos } = props;
 
