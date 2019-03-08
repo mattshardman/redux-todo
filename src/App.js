@@ -5,7 +5,7 @@ import { createStore } from './mattdux';
 import { Provider } from './mattdux';
 // import { Provider } from 'react-redux';
 
-import rootReducer from './components/reducers';
+import rootReducer from './reducers';
 
 import TodoList from './components/TodoList';
 
